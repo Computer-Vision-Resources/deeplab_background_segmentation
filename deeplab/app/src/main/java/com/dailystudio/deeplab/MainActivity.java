@@ -42,7 +42,7 @@ public class MainActivity extends ActionBarFragmentActivity {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            final boolean ret = DeeplabModel.initialize();
+            final boolean ret = DeeplabModel.initialize(MainActivity.this);
             Logger.debug("initialize deeplab model: %s", ret);
 
             return ret;

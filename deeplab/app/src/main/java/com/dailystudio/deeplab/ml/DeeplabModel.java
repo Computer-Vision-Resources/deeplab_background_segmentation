@@ -1,5 +1,6 @@
 package com.dailystudio.deeplab.ml;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.text.TextUtils;
@@ -20,7 +21,8 @@ import java.util.Iterator;
 
 public class DeeplabModel {
 
-    private final static String MODEL_FILE = "/sdcard/deeplab/frozen_inference_graph.pb";
+//    private final static String MODEL_FILE = "/sdcard/deeplab/frozen_inference_graph.pb";
+    private final static String MODEL_FILE = "file:///android_asset/deeplabv3_mnv2_pascal_train_aug_2018_01_29.pb";
 
     private final static String INPUT_NAME = "ImageTensor";
     private final static String OUTPUT_NAME = "SemanticPredictions";
@@ -29,26 +31,27 @@ public class DeeplabModel {
 
     private static TensorFlowInferenceInterface sTFInterface = null;
 
-    public synchronized static boolean initialize() {
+    public synchronized static boolean initialize(Context context) {
 
-        final File graphPath = new File(MODEL_FILE);
-
-        FileInputStream graphStream;
-        try {
-            graphStream = new FileInputStream(graphPath);
-        } catch (FileNotFoundException e) {
-            Logger.error("create input stream from[%s] failed: %s",
-                    graphPath.getAbsoluteFile(),
-                    e.toString());
-
-            graphStream = null;
-        }
-
-        if (graphStream == null) {
-            return false;
-        }
-
-        sTFInterface = new TensorFlowInferenceInterface(graphStream);
+//        final File graphPath = new File(MODEL_FILE);
+//
+//        FileInputStream graphStream;
+//        try {
+//            graphStream = new FileInputStream(graphPath);
+//        } catch (FileNotFoundException e) {
+//            Logger.error("create input stream from[%s] failed: %s",
+//                    graphPath.getAbsoluteFile(),
+//                    e.toString());
+//
+//            graphStream = null;
+//        }
+//
+//        if (graphStream == null) {
+//            return false;
+//        }
+//
+//        sTFInterface = new TensorFlowInferenceInterface(graphStream);
+        sTFInterface = new TensorFlowInferenceInterface(context.getAssets(), MODEL_FILE);
         if (sTFInterface == null) {
             Logger.warn("initialize Tensorflow model[%s] failed.",
                     MODEL_FILE);
@@ -59,12 +62,12 @@ public class DeeplabModel {
 //        printGraph(sTFInterface.graph());
 //        printOp(sTFInterface.graph(), "ImageTensor");
 
-        if (graphStream != null) {
-            try {
-                graphStream.close();
-            } catch (IOException e) {
-            }
-        }
+//        if (graphStream != null) {
+//            try {
+//                graphStream.close();
+//            } catch (IOException e) {
+//            }
+//        }
 
         return true;
     }
