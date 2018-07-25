@@ -9,7 +9,7 @@ Here is demo screen recording.
 Download the frozen graph mobilenetv2_coco_voc_trainaug from [Deeplab github](https://github.com/tensorflow/models/blob/master/research/deeplab/g3doc/model_zoo.md) and put to assets folder.
 
 ## Known issues
-Crashes with the exception no _OpKernel was registered to support Op 'Slice' with these attrs_
+Crashes with the exception [no OpKernel was registered to support Op 'Slice' with these attrs](https://github.com/dailystudio/ml/issues/3)
 
 ## License
 Forked from https://github.com/dailystudio/ml/tree/master/deeplab
